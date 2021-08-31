@@ -1,0 +1,78 @@
+import 'package:json_annotation/json_annotation.dart';
+import 'package:nyxx/nyxx.dart';
+import 'package:discord_bot_creator/discord_bot.dart';
+//part
+
+Type typeOf<T>() => T;
+
+class Mirror<T> {
+  static final Map<Type, Stream Function()> _streams = {
+    //streams
+  };
+
+  static final Map<Type, List<Var>> _variables = {
+    //variables
+  };
+
+  static Iterable<Type> get events => _variables.keys;
+
+  List<Var> get variables => _variables[T]!;
+
+  Stream<T> get stream => _streams[T]!() as Stream<T>;
+
+  Mirror();
+}
+
+class Var {
+  Type type;
+  String name;
+  Var(this.type, this.name);
+}
+
+@JsonSerializable()
+class DiscordAction {
+  Iterable<String> requiredArgs;
+  DiscordAction(this.requiredArgs);
+
+  void execute(event) {}
+
+  factory DiscordAction.fromJson(Map<String, dynamic> json) =>
+      _$DiscordActionFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DiscordActionToJson(this);
+}
+
+@JsonSerializable(genericArgumentFactories: true)
+class EventListener<T> {
+  final List<DiscordAction> actions;
+  EventListener(this.actions);
+  void subscribe() {
+    Mirror<T>().stream.listen((event) {
+      for (final action in actions) {
+        action.execute(event);
+      }
+    });
+  }
+
+  static EventListener? ofType(Type type){
+    switch(type){
+      //case
+    }
+  }
+
+  factory EventListener.fromJson(
+    Map<String, dynamic> json,
+    T Function(Object? json) fromJsonT,
+  ) =>
+      _$EventListenerFromJson(json, fromJsonT);
+  Map<String, dynamic> toJson(Object Function(T value) toJsonT) =>
+      _$EventListenerToJson(this, toJsonT);
+}
+
+void main() {
+  final eventListeners = <EventListener>[];
+
+  final bot = Nyxx('', 1);
+
+  for (final i in eventListeners) {}
+}

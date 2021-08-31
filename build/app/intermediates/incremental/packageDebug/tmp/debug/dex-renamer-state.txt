@@ -1,0 +1,4 @@
+#Mon Aug 30 14:25:36 CEST 2021
+base.0=C\:\\Users\\lmgd\\Desktop\\Programmation\\Flutter\\discord_bot_creator\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+renamed.0=classes.dex
+path.0=classes.dex
